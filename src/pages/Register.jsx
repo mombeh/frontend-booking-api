@@ -45,6 +45,7 @@ const Register = () => {
 
       if (!providerRes.ok) {
         const data = await providerRes.json();
+        console.log(data);
         throw new Error(data.message || 'Provider registration failed');
       }
 
