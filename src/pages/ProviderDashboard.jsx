@@ -3,13 +3,11 @@ import TimeSlotForm from '../components/TimeslotForm';
 import TimeSlotList from '../components/TimeSlotList';
 
 const ProviderDashboard = () => {
-  const [timeSlots, setTimeSlots] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    // Placeholder: replace with actual fetch logic
-    setTimeSlots([]);
+
     setAppointments([]);
   }, []);
 
@@ -21,22 +19,18 @@ const ProviderDashboard = () => {
       </p>
 
       <section>
-        <h3>Your Time Slots:</h3>
-        <ul>
-          {timeSlots.length > 0 ? (
-            timeSlots.map((slot) => (
-              <li key={slot.id}>
-                {slot.date} at {slot.time}
-              </li>
-            ))
-          ) : (
-            <li>No time slots yet</li>
-          )}
-        </ul>
 
-        <div style={{ marginTop: '1rem' }}>
+        <div style={{ marginTop: '1rem', alignItems: 'center' }}>
           {!showForm ? (
-            <button onClick={() => setShowForm(true)}>Add Time Slot</button>
+            <button onClick={() => setShowForm(true)}
+             style={{ 
+              backgroundColor:'#007bff',
+              padding: '10px',
+              border: 'none',
+              borderRadius:' 5px',
+              width: '120px',
+              color: '#fff',
+              fontSize: '14px'}}>Creat Time Slot</button>
           ) : (
             <TimeSlotForm onClose={() => setShowForm(false)} />
           )}

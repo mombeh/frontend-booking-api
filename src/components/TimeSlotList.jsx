@@ -12,7 +12,7 @@ const TimeSlotList = () => {
       if (role !== 'provider') return;
 
       try {
-        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/providers/timeslots`, {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api//timeslots/view`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
