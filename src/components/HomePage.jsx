@@ -15,15 +15,15 @@ const HomePage = () => {
         <h2>Why Choose Us?</h2>
         <div className="feature-list">
           <div className="feature-item">
-            <h3>🎯 Simple Booking</h3>
+            <h3>Simple Booking</h3>
             <p>Book appointments in just a few clicks.</p>
           </div>
           <div className="feature-item">
-            <h3>✅ Verified Providers</h3>
+            <h3>Verified Providers</h3>
             <p>Work with trusted and verified service providers.</p>
           </div>
           <div className="feature-item">
-            <h3>⏰ Flexible Time Slots</h3>
+            <h3>Flexible Time Slots</h3>
             <p>Choose time slots that suit your schedule.</p>
           </div>
         </div>

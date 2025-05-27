@@ -51,7 +51,7 @@ const ProviderDashboard = () => {
                 borderRadius: '5px',
                 width: '120px',
                 color: '#fff',
-                fontSize: '14px',
+                // fontSize: '14px',
               }}
             >
               Create Time Slot
