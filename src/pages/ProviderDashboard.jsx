@@ -1,13 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import TimeSlotForm from '../components/TimeslotForm';
 import TimeSlotList from '../components/TimeSlotList';
+import { AuthContext } from '../context/AuthContext';
 
 const ProviderDashboard = () => {
+  const { token } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [slots, setSlots] = useState([]);
+  const [error, setError] = useState('');
+
+  const fetchTimeSlots = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/time-slot/view`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to fetch time slots');
+
+      setSlots(data);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   useEffect(() => {
-
+    fetchTimeSlots();
     setAppointments([]);
   }, []);
 
@@ -19,20 +40,24 @@ const ProviderDashboard = () => {
       </p>
 
       <section>
-
         <div style={{ marginTop: '1rem', alignItems: 'center' }}>
           {!showForm ? (
-            <button onClick={() => setShowForm(true)}
-             style={{ 
-              backgroundColor:'#007bff',
-              padding: '10px',
-              border: 'none',
-              borderRadius:' 5px',
-              width: '120px',
-              color: '#fff',
-              fontSize: '14px'}}>Creat Time Slot</button>
+            <button
+              onClick={() => setShowForm(true)}
+              style={{
+                backgroundColor: '#007bff',
+                padding: '10px',
+                border: 'none',
+                borderRadius: '5px',
+                width: '120px',
+                color: '#fff',
+                fontSize: '14px',
+              }}
+            >
+              Create Time Slot
+            </button>
           ) : (
-            <TimeSlotForm onClose={() => setShowForm(false)} />
+            <TimeSlotForm onClose={() => setShowForm(false)} onCreated={fetchTimeSlots} />
           )}
         </div>
       </section>
@@ -52,8 +77,7 @@ const ProviderDashboard = () => {
         </ul>
       </section>
 
-      {/* Optional: If this always shows, keep it at bottom */}
-      <TimeSlotList />
+      <TimeSlotList slots={slots} error={error} />
     </div>
   );
 };
