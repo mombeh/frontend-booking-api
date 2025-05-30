@@ -21,7 +21,13 @@ const ProviderDashboard = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to fetch time slots');
 
-      setSlots(data);
+      const normalizeSlots = (rawSlots) =>
+        rawSlots.map(slot => ({
+          ...slot,
+          startTime: slot.start_time,
+          endTime: slot.end_time,
+        }));
+      setSlots(normalizeSlots(data));
     } catch (err) {
       setError(err.message);
     }
