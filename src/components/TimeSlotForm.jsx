@@ -38,7 +38,7 @@ const TimeSlotForm = ({ onClose }) => {
       }
 
       // Show success message
-      setMessage('✅ Time slot created successfully!');
+      setMessage(' Time slot created successfully!');
 
       // Clear the form
       setDate('');
@@ -51,7 +51,7 @@ const TimeSlotForm = ({ onClose }) => {
       }, 1500);
 
     } catch (err) {
-      setMessage(`❌ ${err.message}`);
+      setMessage(` ${err.message}`);
     }
   };
 
