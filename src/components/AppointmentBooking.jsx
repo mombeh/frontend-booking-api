@@ -1,6 +1,7 @@
 // src/components/AppointmentBooking.jsx
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom'; // at the top
 
 const AppointmentBooking = () => {
   const { token, role } = useContext(AuthContext);
@@ -9,6 +10,8 @@ const AppointmentBooking = () => {
   const [selectedProviderId, setSelectedProviderId] = useState('');
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+
+  const navigate = useNavigate(); // inside component
 
   useEffect(() => {
     if (role !== 'user') return;
@@ -30,7 +33,8 @@ const AppointmentBooking = () => {
   const handleBook = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccess('');
+    setSuccess('Appointment booked successfully!');
+    setTimeout(() => navigate('/user/dashboard'), 1500);
 
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/appointments/book`, {
@@ -88,11 +92,14 @@ const AppointmentBooking = () => {
           {selectedProviderId &&
             providers
               .find((p) => p.id === selectedProviderId)
-              ?.timeSlots.map((slot) => (
+              ?.timeSlots
+              .filter(slot => !slot.is_booked)
+              .map((slot) => (
                 <option key={slot.id} value={slot.id}>
                   {slot.date} | {slot.startTime} - {slot.endTime}
                 </option>
-              ))}
+              ))
+          }
         </select>
 
         <button type="submit" disabled={!selectedSlotId}>

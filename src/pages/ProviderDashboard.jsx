@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import TimeSlotForm from '../components/TimeslotForm';
+import TimeSlotForm
+ from '../components/TimeslotForm';
 import TimeSlotList from '../components/TimeSlotList';
 import { AuthContext } from '../context/AuthContext';
 
 const ProviderDashboard = () => {
   const { token } = useContext(AuthContext);
-  const [appointments, setAppointments] = useState([]);
+  // const [appointments, setAppointments] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [slots, setSlots] = useState([]);
   const [error, setError] = useState('');
@@ -35,7 +36,7 @@ const ProviderDashboard = () => {
 
   useEffect(() => {
     fetchTimeSlots();
-    setAppointments([]);
+    // setAppointments([]);
   }, []);
 
   return (
@@ -68,7 +69,7 @@ const ProviderDashboard = () => {
         </div>
       </section>
 
-      <section>
+      {/* <section>
         <h3>Upcoming Appointments:</h3>
         <ul>
           {appointments.length > 0 ? (
@@ -81,7 +82,7 @@ const ProviderDashboard = () => {
             <li>No appointments yet</li>
           )}
         </ul>
-      </section>
+      </section> */}
 
       <TimeSlotList slots={slots} error={error} />
     </div>

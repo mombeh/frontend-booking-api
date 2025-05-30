@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import UserDashboard from './pages/UserDashboard';
 import ProviderDashboard from './pages/ProviderDashboard';
+import AppointmentBooking from './components/AppointmentBooking';
 
 const DashboardRedirect = () => {
   const { role } = useContext(AuthContext);
@@ -26,13 +27,10 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-
-          {/* Redirect based on role */}
           <Route path="/dashboard" element={<DashboardRedirect />} />
-
-          {/* Individual dashboards */}
           <Route path="/user/dashboard" element={<UserDashboard />} />
           <Route path="/provider/dashboard" element={<ProviderDashboard />} />
+          <Route path="/book" element={<AppointmentBooking />} />
         </Routes>
       </Router>
     </AuthProvider>

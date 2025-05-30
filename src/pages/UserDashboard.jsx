@@ -2,11 +2,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import AppointmentBooking from '../components/AppointmentBooking';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const UserDashboard = () => {
   const { token } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   const fetchAppointments = async () => {
     try {
@@ -55,8 +59,7 @@ const UserDashboard = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => alert('Redirect to booking page')}>Book New Appointment</button>
-      <AppointmentBooking />
+      <button onClick={() => navigate('/book')}>Book New Appointment</button>      <AppointmentBooking onBookSuccess={fetchAppointments} />
     </div>
   );
 };
