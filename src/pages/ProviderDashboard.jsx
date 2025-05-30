@@ -3,6 +3,8 @@ import TimeSlotForm
  from '../components/TimeslotForm';
 import TimeSlotList from '../components/TimeSlotList';
 import { AuthContext } from '../context/AuthContext';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const ProviderDashboard = () => {
   const { token } = useContext(AuthContext);
@@ -40,6 +42,8 @@ const ProviderDashboard = () => {
   }, []);
 
   return (
+    <>
+    <Navbar />
     <div className="dashboard provider">
       <h2>Welcome, Provider 👨‍💼</h2>
       <p style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -86,6 +90,8 @@ const ProviderDashboard = () => {
 
       <TimeSlotList slots={slots} error={error} />
     </div>
+    <Footer/> 
+    </>
   );
 };
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -72,6 +74,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className='auth-container'>
       <h2>Register</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -105,6 +109,8 @@ const Register = () => {
         <button type="submit">Register</button>
       </form>
     </div>
+    <Footer/> 
+    </>
   );
 };
 

@@ -3,7 +3,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import AppointmentBooking from '../components/AppointmentBooking';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const UserDashboard = () => {
   const { token } = useContext(AuthContext);
@@ -44,6 +45,8 @@ const UserDashboard = () => {
   };
 
   return (
+   <>
+    < Navbar /> 
     <div className="dashboard user">
       <h2>Welcome, User 👋</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -61,6 +64,8 @@ const UserDashboard = () => {
       </ul>
       <button onClick={() => navigate('/book')}>Book New Appointment</button>      <AppointmentBooking onBookSuccess={fetchAppointments} />
     </div>
+    <Footer/> 
+   </>
   );
 };
 

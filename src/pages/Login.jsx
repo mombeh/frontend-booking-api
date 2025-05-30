@@ -2,6 +2,8 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -52,6 +54,8 @@ const Login = () => {
   };
 
   return (
+   <>
+    <Navbar />
     <div className='auth-container'>
       <h2>Login</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -67,6 +71,8 @@ const Login = () => {
         <button type="submit">Login</button>
       </form>
     </div>
+    <Footer/> 
+    </>
   );
 };
 
