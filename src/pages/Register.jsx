@@ -35,9 +35,9 @@ const Register = () => {
          lastName: formData.lastName,
          email: formData.email,
          password: formData.password,
-         role: 'client',
+         role: formData.isProvider ? 'provider' : 'client',
+         ...(formData.isProvider && { serviceName: formData.serviceName }),
        };
-       console.log('Sending user registration data:', requestBody);
 
        const userRes = await fetch(`${baseUrl}/api/users/register`, {
          method: 'POST',
@@ -45,42 +45,17 @@ const Register = () => {
          body: JSON.stringify(requestBody),
        });
 
-       console.log('User registration response status:', userRes.status);
        const userData = await userRes.json();
-       console.log('User registration response data:', userData);
 
       if (!userRes.ok) {
         throw new Error(userData.message || 'User registration failed');
       }
 
-      // Step 2: If also registering as provider
-      if (formData.isProvider) {
-        const providerRequestBody = {
-          email: formData.email,
-          serviceName: formData.serviceName,
-        };
-        console.log('Sending provider registration data:', providerRequestBody);
-
-        const providerRes = await fetch(`${baseUrl}/api/providers/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(providerRequestBody),
-        });
-
-        console.log('Provider registration response status:', providerRes.status);
-        const providerData = await providerRes.json();
-        console.log('Provider registration response data:', providerData);
-
-        if (!providerRes.ok) {
-          throw new Error(providerData.message || 'Provider registration failed');
-        }
-      }
 
       setSuccess('Registration successful. You can now log in!');
       navigate('/login');
 
     } catch (err) {
-      console.error('Registration error:', err);
       setError(err.message);
     }
   };

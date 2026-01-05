@@ -12,7 +12,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    role: 'user',
+    role: 'client',
   });
 
   const [error, setError] = useState('');
@@ -28,10 +28,7 @@ const Login = () => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
 
     try {
-      const endpoint =
-        formData.role === 'user'
-          ? `${baseUrl}/api/users/login`
-          : `${baseUrl}/api/providers/login`;
+      const endpoint = `${baseUrl}/api/users/login`;
 
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -93,7 +90,7 @@ const Login = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200"
                 >
-                  <option value="user">Customer</option>
+                  <option value="client">Customer</option>
                   <option value="provider">Service Provider</option>
                 </select>
               </div>

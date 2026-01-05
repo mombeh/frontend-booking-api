@@ -74,76 +74,86 @@ const AppointmentBooking = () => {
   return (
    <>
        <Navbar />
-    <div className="appointment-booking">
-      <h2>Book an Appointment</h2>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h2 className="text-3xl font-bold text-center mb-6">Book an Appointment</h2>
 
-      {error && <p className="message error">{error}</p>}
-      {success && <p className="message success">{success}</p>}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        {success && <p className="text-green-500 text-center mb-4">{success}</p>}
 
-      <form onSubmit={handleBook}>
-        {/* Provider */}
-        <div className="form-group">
-          <label htmlFor="provider">Select Provider:</label>
-          <select
-            id="provider"
-            value={selectedProviderId}
-            onChange={(e) => {
-              setSelectedProviderId(e.target.value);
-              setSelectedSlotId('');
-            }}
-            required
+        <form onSubmit={handleBook} className="space-y-4">
+          {/* Provider */}
+          <div>
+            <label htmlFor="provider" className="block text-sm font-medium text-gray-700 mb-1">Select Provider:</label>
+            <select
+              id="provider"
+              value={selectedProviderId}
+              onChange={(e) => {
+                setSelectedProviderId(e.target.value);
+                setSelectedSlotId('');
+              }}
+              required
+              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">-- Select Provider --</option>
+              {providers.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.serviceName} ({p.email})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Time Slot */}
+          <div>
+            <label htmlFor="slot" className="block text-sm font-medium text-gray-700 mb-1">Select Time Slot:</label>
+            <select
+              id="slot"
+              value={selectedSlotId}
+              onChange={(e) => setSelectedSlotId(e.target.value)}
+              required
+              disabled={!selectedProviderId}
+              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+            >
+              <option value="">-- Select Time Slot --</option>
+              {selectedProviderId &&
+                providers
+                  .find((p) => p.id === selectedProviderId)
+                  ?.timeSlots
+                  .filter((slot) => !slot.is_booked)
+                  .map((slot) => (
+                    <option key={slot.id} value={slot.id}>
+                      {slot.date} | {slot.startTime} - {slot.endTime}
+                    </option>
+                  ))}
+            </select>
+          </div>
+
+          {/* Notes */}
+          <div>
+            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">Notes (optional):</label>
+            <textarea
+              id="notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Add any specific instructions..."
+              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+              rows="4"
+            />
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={!selectedSlotId}
+            className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded"
           >
-            <option value="">-- Select Provider --</option>
-            {providers.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.serviceName} ({p.email})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Time Slot */}
-        <div className="form-group">
-          <label htmlFor="slot">Select Time Slot:</label>
-          <select
-            id="slot"
-            value={selectedSlotId}
-            onChange={(e) => setSelectedSlotId(e.target.value)}
-            required
-            disabled={!selectedProviderId}
-          >
-            <option value="">-- Select Time Slot --</option>
-            {selectedProviderId &&
-              providers
-                .find((p) => p.id === selectedProviderId)
-                ?.timeSlots
-                .filter((slot) => !slot.is_booked)
-                .map((slot) => (
-                  <option key={slot.id} value={slot.id}>
-                    {slot.date} | {slot.startTime} - {slot.endTime}
-                  </option>
-                ))}
-          </select>
-        </div>
-
-        {/* Notes */}
-        <div className="form-group">
-          <label htmlFor="notes">Notes (optional):</label>
-          <textarea
-            id="notes"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            placeholder="Add any specific instructions..."
-          />
-        </div>
-
-        {/* Submit */}
-        <button type="submit" disabled={!selectedSlotId}>
-          Book Appointment
-        </button>
-      </form>
+            Book Appointment
+          </button>
+        </form>
+      </div>
     </div>
-    <Footer/> 
+    <Footer/>
    </>
   );
 };

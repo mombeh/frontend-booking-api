@@ -43,53 +43,45 @@ const ProviderDashboard = () => {
   return (
     <>
     <Navbar />
-    <div className="dashboard provider">
-      <h2>Welcome, Provider 👨‍💼</h2>
-      <p style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        Manage your availability and view appointments.
-      </p>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h2 className="text-3xl font-bold text-center mb-4">Welcome, Provider 👨‍💼</h2>
+        <p className="text-center text-gray-600 mb-8">
+          Manage your availability and view appointments.
+        </p>
 
-      <section>
-        <div style={{ marginTop: '1rem', alignItems: 'center' }}>
+        <section className="bg-gray-100 p-4 rounded-lg mb-6">
           {!showForm ? (
             <button
               onClick={() => setShowForm(true)}
-              style={{
-                backgroundColor: '#007bff',
-                padding: '10px',
-                border: 'none',
-                borderRadius: '5px',
-                width: '120px',
-                color: '#fff',
-                // fontSize: '14px',
-              }}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
             >
               Create Time Slot
             </button>
           ) : (
             <TimeSlotForm onClose={() => setShowForm(false)} onCreated={fetchTimeSlots} />
           )}
-        </div>
-      </section>
+        </section>
 
-      {/* <section>
-        <h3>Upcoming Appointments:</h3>
-        <ul>
-          {appointments.length > 0 ? (
-            appointments.map((appt) => (
-              <li key={appt.id}>
-                {appt.user} — {appt.date} at {appt.time}
-              </li>
-            ))
-          ) : (
-            <li>No appointments yet</li>
-          )}
-        </ul>
-      </section> */}
+        {/* <section>
+          <h3>Upcoming Appointments:</h3>
+          <ul>
+            {appointments.length > 0 ? (
+              appointments.map((appt) => (
+                <li key={appt.id}>
+                  {appt.user} — {appt.date} at {appt.time}
+                </li>
+              ))
+            ) : (
+              <li>No appointments yet</li>
+            )}
+          </ul>
+        </section> */}
 
-      <TimeSlotList slots={slots} error={error} />
+        <TimeSlotList slots={slots} error={error} />
+      </div>
     </div>
-    <Footer/> 
+    <Footer/>
     </>
   );
 };

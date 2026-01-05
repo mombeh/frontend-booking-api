@@ -46,25 +46,47 @@ const UserDashboard = () => {
 
   return (
    <>
-    < Navbar /> 
-    <div className="dashboard user">
-      <h2>Welcome, User 👋</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <p>Here are your upcoming appointments:</p>
-      <ul>
-        {appointments.length === 0 && <li>No upcoming appointments</li>}
-        {appointments.map((appt) => (
-          <li key={appt.id}>
-            <strong>{appt.service_name || appt.provider || 'Service'}</strong> — {appt.time || appt.appointment_time}
-            <button onClick={() => cancelAppointment(appt.id)} style={{ marginLeft: '10px' }}>
-              Cancel
-            </button>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => navigate('/book')}>Book New Appointment</button>      <AppointmentBooking onBookSuccess={fetchAppointments} />
+    <Navbar />
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h2 className="text-3xl font-bold text-center mb-4">Welcome, User 👋</h2>
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        <p className="text-center text-gray-600 mb-6">Here are your upcoming appointments:</p>
+
+        <div className="mb-6">
+          {appointments.length === 0 ? (
+            <p className="text-gray-500 text-center">No upcoming appointments</p>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2">
+              {appointments.map((appt) => (
+                <div key={appt.id} className="bg-gray-100 p-4 rounded-lg shadow">
+                  <h3 className="font-semibold">{appt.service_name || appt.provider || 'Service'}</h3>
+                  <p className="text-gray-600">{appt.time || appt.appointment_time}</p>
+                  <button
+                    onClick={() => cancelAppointment(appt.id)}
+                    className="mt-2 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded text-sm"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="text-center mb-6">
+          <button
+            onClick={() => navigate('/book')}
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Book New Appointment
+          </button>
+        </div>
+
+        <AppointmentBooking onBookSuccess={fetchAppointments} />
+      </div>
     </div>
-    <Footer/> 
+    <Footer/>
    </>
   );
 };
