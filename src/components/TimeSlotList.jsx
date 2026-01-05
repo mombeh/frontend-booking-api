@@ -1,4 +1,3 @@
-import React from 'react';
 
 const TimeSlotList = ({ slots = [], error = '' }) => {
   const formatTime = (timeStr) => {

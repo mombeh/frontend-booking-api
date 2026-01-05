@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import TimeSlotForm
- from '../components/TimeslotForm';
+import TimeSlotForm from '../components/TimeSlotForm';
 import TimeSlotList from '../components/TimeSlotList';
 import { AuthContext } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
